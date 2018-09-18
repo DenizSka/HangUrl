@@ -8,7 +8,7 @@ var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-var codingWords = ['function', 'parameter', 'argument', 'array'] // aka categories. category
+var codingWords = ['function', 'parameter', 'argument', 'array', 'object', 'recursion', 'scope'] // aka categories.
 var wordSelected;
 var guess;             // Selected word from the array of answers. aka word
 var placeholder ;             // aka guessed letters
@@ -26,17 +26,17 @@ var alphabetButtons = function () {
   buttons = document.getElementById('alphabet');
   lettersUl = document.createElement('ul');
 
-//now create li for each letter in alphabet.
+  //now create li for each letter in alphabet.
   for (var i= 0; i < alphabet.length; i++){
     li = document.createElement ('li');
-// give each ul and li id.
+    // give each ul and li id.
     lettersUl.id = 'keyboard';
     // li.id = 'letter';
     li.className = 'letter'
-//write all the letters inside each li.
+    //write all the letters inside each li.
     li.innerText = alphabet[i];
     winLose ();
-//add all the li and ul we just created under div buttons.
+    //add all the li and ul we just created under div buttons.
     buttons.appendChild(lettersUl);
     lettersUl.appendChild(li);
   }
@@ -44,13 +44,12 @@ var alphabetButtons = function () {
 alphabetButtons();
 
 //alphabet is ready. But what about the answer? Where will that appear?
-// Ideally above the alphabet keywords.
+// Ideally below the alphabet keywords.
 
 //keep track of the letters that remain to be guessed.
 var remainingLetters = wordSelected.length;
 //now lets make a function about the guessedWord and where it will be stored: (lets call the function inplay)
 var inPlay = function (){
-
 //we will put the box inside the div id: hold.
   wordBox = document.getElementById('wordbox');
 //make a new ul that will go under this div.
@@ -64,18 +63,17 @@ var inPlay = function (){
      // placeholder.innerText = '_';
      placeholder[i] = '_';
     // placeholder.innerText = wordSelected;
-//    guessed.classList.add('LetterWord');  why do i need this
-// if the letter in the selected word is equal to the guessed letter. add it using innerHtml to li.
-//       if(wordSelected[i] == guessed[i]){
-//         guessed.innerHtml = guessed[i];
-// else if it is not equal than add "_"
-//       } else{
-//         guess.innerHtml = "_"
-//       }
-// push all the guesses in to guessArray.
-
+    // guessed.classList.add('LetterWord');  why do i need this
+    // if the letter in the selected word is equal to the guessed letter. add it using innerHtml to li.
+    //       if(wordSelected[i] == guessed[i]){
+    //         guessed.innerHtml = guessed[i];
+    // else if it is not equal than add "_"
+    //       } else{
+    //         guess.innerHtml = "_"
+    //       }
+    // push all the guesses in to guessArray.
       clickedArray.push(placeholder);
-// dont forget to append child the ul and li.
+    // dont forget to append child the ul and li.
       wordBox.appendChild(ulWordBox);
       ulWordBox.appendChild(placeholder);
    }
@@ -113,30 +111,28 @@ inPlay();
 
  var winLose = function () {
   // while (remainingLetters>0){ //NEW
-    //show the player their progress : NEW
-    // wordBox = document.getElementById('wordbox');
-    // wordBox.innerHTML = placeholder.join(' ');
+  // show the player their progress : NEW
+  // wordBox = document.getElementById('wordbox');
+  // wordBox.innerHTML = placeholder.join(' ');
 
-// //NOW We want to add a click function to the keyboard.
-li = document.getElementsByClassName('letter');
-  for (var i= 0; i < li.length; i++){
-    li[i].addEventListener('click', function(){
-      var clickedLetter = this.innerText;
-        for (var j = 0; j < wordSelected.length; j++){
-          if (clickedLetter === wordSelected[j]){
-
-// use j to update the game board with clickedLetter
+  // We want to add a click function to the keyboard.
+  li = document.getElementsByClassName('letter');
+    for (var i= 0; i < li.length; i++){
+      li[i].addEventListener('click', function(){
+        var clickedLetter = this.innerText;
+          for (var j = 0; j < wordSelected.length; j++){
+            if (clickedLetter === wordSelected[j]){
+            // use j to update the game board with clickedLetter
             // gameBoard[j] = wordSelected[j]
 
             placeholder[j] = clickedLetter
             // remainingLetters--;
-
             console.log(clickedLetter);
-          };
-        };
-    });
-    /*placeholder.innerText = wordSelected*/
-  };
+              };
+            };
+          });
+      /*placeholder.innerText = wordSelected*/
+      };
   // for (var k = 0; k < clickedArray; k++) {
   // placeholder.innerText = clickArray[k];
 // };

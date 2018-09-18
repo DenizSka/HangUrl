@@ -13,13 +13,94 @@ body {
 }
 
 .wrapper{
-  width:100%;
-  margin:0 auto;
+/*  width:100%;*/
+/*  margin:0 auto;*/
+  display: flex;
+  align-items: stretch;
 }
 
+.navbar{
+  float: left;
+}
+
+#sidebar {
+  color: black;
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+
+#sidebarCollapse{
+  border: solid 1px;
+  text-decoration:none;
+  cursor:pointer;
+  border-radius: 60px;
+  font-size:12px;
+  margin-left: 35%;
+  padding: 5px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -250px;
+  }
+  #sidebar.active {
+     margin-left: 0;
+  }
+}
+
+
+#hang {
+  animation: hang .50s ease-out infinite alternate;
+  transform-origin: top;
+  animation-delay: 0s, .5s;
+}
+
+p.dropdown-toggle{
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Heart beat animation */
+@keyframes hang{
+  to { transform: scale(1.4); }
+}
+
+
+/*.heart {
+  font-size: 150px;
+  color: #e00;
+  animation: strobe .50s ease-out infinite alternate;
+  transform-origin: bottom;
+}
+
+/* Heart beat animation */
+/*@keyframes strobe{
+  to { transform: scale(1.4); }
+}*/
+
 #alphabet {
-  margin:15px auto;
-  padding:0;
+  margin-top:20px;
+  padding-bottom: 20px;
+
 }
 
 #alphabet li {
@@ -32,23 +113,23 @@ body {
   background:pink;
   cursor:pointer;
   border: solid 1px pink;
-
-
-#wordbox {
-  color: black;
 }
 
-span {
+span.underscore-for-letter {
   position: relative;
   list-style: none;
-  margin: 0;
+  margin: 8px;
   display: inline-block;
   padding: 0 10px;
   font-size:1.6em;
 }
 
+#wordbox.wordbox {
+  margin-top: 10%;
+}
+
 #hangman {
-  padding: 0 500px;
+  padding: 0 100px;
 }
 img {
   position: relative;
@@ -84,11 +165,9 @@ img {}
   padding: 8px;
   cursor:pointer;
 }*/
-}
 
-#wordbox {
-  padding: 80px 250px;
-}
+
+
 
 /*.placeholder {
   display: inline;
@@ -112,7 +191,7 @@ li {
   color: black;
   display: inline-block;
   width: 20px;
-  height: 10px;
+/*  height: 10px;*/
   padding-bottom: 10px;
   border-bottom: 2px solid pink;
   margin-left: 10px;
@@ -120,9 +199,10 @@ li {
 
 .underscore-for-letter:before {
   content: ' ';
+
 }
 
-button{
+#reset{
   color: white;
   border: solid 1px pink;
   text-decoration:none;
@@ -130,5 +210,11 @@ button{
   border-radius: 5px;
   font-size:1em;
   padding:10px 10px;
+  background: pink;
+  margin-top: 30px;
+}
 
+/*#reset{
+  margin-top: 30px;
+}*/
 

@@ -1,14 +1,14 @@
 
 // first lets define all the new variables:
 $(document).ready(function(){
-// change var to let.
-//each time there is a loop going on put $
+
+
 
     let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-    let words = ['function', 'parameter', 'integer', 'variable', 'constant', 'argument', 'array']; // aka categories. category
+    let words = ['function', 'parameter', 'integer', 'variable', 'constant', 'argument', 'array', 'object', 'recursion', 'scope']; // aka categories. category
     // let wordSelected;
     let guess;             // Selected word from the array of answers. aka word
     let placeholder ;             // aka guessed letters
@@ -19,6 +19,7 @@ $(document).ready(function(){
     let span;
     let spanString;
     let wordBox;
+    let endState = 0;
     let correctLetters = [ ]; //store the correct clicked letters
     let image = new Array();
       image[0] = '<img src="img/image0.png" data="0" width="415" height="496">';
@@ -36,46 +37,64 @@ $(document).ready(function(){
     // wordSelected = words[Math.floor(Math.random() * words.length)];
 
     const populateWordBox = function () {
-        let wordBox = $('#wordbox');
-        let randomIndex = Math.floor(Math.random() * words.length);
-        randomWord = words[randomIndex];
-        lengthOfRandomWord = words[randomIndex].length;
-        console.log(randomWord);
-        for (var i = 0; i < lengthOfRandomWord; i++) {
-          let spanString = '<span class="underscore-for-letter" id="span' + i + '">'
-          span = $(spanString);
-          span.appendTo(wordBox);
-        }
+
+      wordBox = $('#wordbox');
+      let randomIndex = Math.floor(Math.random() * words.length);
+      randomWord = words[randomIndex];
+      lengthOfRandomWord = words[randomIndex].length;
+
+      console.log(randomWord);
+
+      for (let i = 0; i < lengthOfRandomWord; i++) {
+        let spanString = '<span class="underscore-for-letter" id="span' + i + '">'
+        span = $(spanString);
+        span.appendTo(wordBox);
+      }
     };
 
     const replaceImage = function () {
-        let data = $("#hangman > img").attr('data');
-        data = parseInt(data);
-        data++;
-        $("#hangman").html(image[data]);
-        if (data === 9){
-          alert ('you lose');
-          resetGame();
+      let data = $("#hangman > img").attr('data');
+      data = parseInt(data);
+      data++;
+      $("#hangman").html(image[data]);
+      if (data === 9){
+
+        if (confirm("You Lose. Want to play again?")) {
+            endState = 1;
+            console.log("You pressed OK!")
+            resetGame();
+        } else {
+            endState = 0;
+            console.log("You pressed Cancel!")
         }
+        }
+
     };
 
 
 
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+
     const clickFunction = function () {
-        let list = $('.letter');
-        // for (let i= 0; i < list.length; i++){
-            list.bind ('click', function() {
-                clickedLetter = this.innerText;
-                $(this).unbind("click");
-                $(this).css('visibility', 'hidden');
-                console.log(clickedLetter);
-           if (checkLetter() === false){
-        //draw another piece.
-             replaceImage ();
-           };
-        // console.log(clickedLetter);
-            });
-        };
+      let list = $('.letter');
+      // for (let i= 0; i < list.length; i++){
+        list.bind ('click', function() {
+
+          clickedLetter = this.innerText;
+          $(this).unbind("click");
+          $(this).css('visibility', 'hidden');
+          console.log(clickedLetter);
+
+          if (checkLetter() === false){
+          //draw another piece.
+            replaceImage ();
+          };
+          // console.log(clickedLetter);
+        });
+    };
 
     const checkLetter = function () {
       let foundLetter = false;
@@ -86,8 +105,8 @@ $(document).ready(function(){
             if (clickedLetter === randomWord[i]){
               // correctLetters.push(clickedLetter);
               // console.log(randomWord[i]);
-                  $(spanId).text(clickedLetter);
-                  foundLetter = true;
+                $(spanId).text(clickedLetter);
+                foundLetter = true;
             // if (correctLetters.length === randomWord.length) {
             //   alert ('congrats you win!')
             // }
@@ -108,17 +127,26 @@ $(document).ready(function(){
 
     window.onload = play();
 
+
+
+
+
+
     const resetGame = function(){
-      let reset = $('#reset')
-        reset.click (function() {
+
+      let reset = $('#reset');
+
+        console.log(endState)
+        reset.bind ('click', function() {
           // correctLetters = [];
+          $(this).unbind("click");
           $('span').remove();
           $('.letter').css('visibility', 'visible');
           $("#hangman").html(image[0]);
           play();
-      });
+        })
+
     }
-    resetGame();
 
 });
 
