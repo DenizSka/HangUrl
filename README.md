@@ -3,6 +3,9 @@ README
 Name of the game
 + HANG URL
 
+Live Game:
+https://hangurl.herokuapp.com/
+
 Rules
  + Hang Url is word guessing game for one player. Computer will generate words from coding terminology such as function, array etc. And the player will try to guess it by suggesting letters, within a certain number of guesses.
         + Url (aka Earl) will be a coder guy.
